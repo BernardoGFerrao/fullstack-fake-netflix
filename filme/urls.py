@@ -1,6 +1,7 @@
-# filme/urls.py
-from django.urls import path
+from django.urls import path, include
+from .views import homepage
 
 urlpatterns = [
-    # You can add your URL patterns here later
+    path('', homepage)
+
 ]
