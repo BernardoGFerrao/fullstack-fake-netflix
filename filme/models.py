@@ -19,6 +19,7 @@ class Filme(models.Model): #Model -> Padrão Django
     visualizacoes = models.IntegerField(default=0)
     data_de_criacao = models.DateTimeField(default=timezone.now)
 
-
+    def __str__(self):
+        return self.titulo
 
 #Criar os episódios
