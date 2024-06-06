@@ -27,3 +27,8 @@ class DetalhesFilme(DetailView): #Para cada filme aparecerá um detalhe diferent
     template_name = 'detalhesfilme.html'
     model = Filme
     #object_list -> Um item do nosso modelo
+    def get_context_data(self, **kwargs):#Sobreescrever
+        context = super(DetalhesFilme, self).get_context_data(**kwargs)#Garante que a função continue igual
+        filmes_relacionados = Filme.objects.filter(categoria=self.get_object().categoria)[0:5]#Filtrar a tabela de filmes de acordo com a categoria
+        context['filmes_relacionados'] = filmes_relacionados
+        return context
