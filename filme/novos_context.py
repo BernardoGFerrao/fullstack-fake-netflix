@@ -5,5 +5,5 @@ def lista_filmes_recentes(request):
     return {"lista_filmes_recentes": lista_filmes}
 
 def lista_filmes_alta(request):
-    lista_filmes = Filme.objects.all().order_by('visualizacoes')[0:10]#- Decrescente
+    lista_filmes = Filme.objects.all().order_by('-visualizacoes')[0:10]#- Decrescente
     return {"lista_filmes_alta": lista_filmes}
