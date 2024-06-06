@@ -11,6 +11,16 @@
     <p>{{ filme.descricao }}</p>
     <img src="{{ filme.thumb.url }}"></img>
     {% endfor %}
-
 </div>
+
+<div class="py-12">
+    <h2>Novo</h2>
+    {{ lista_filmes_recentes }}
+</div>
+
+<div class="py-12">
+    <h2>Em alta</h2>
+    {{ lista_filmes_alta }}
+</div>
+
 {% endblock %}
