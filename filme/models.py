@@ -4,9 +4,12 @@ from django.utils import timezone
 
 LISTA_CATEGORIAS = (
     #(como ficar armazenado no bd, como aparece para escolher),
-    ("ANALISES", "Análises"),
-    ("PROGRAMACAO", "Programação"),
-    ("APRESENTACAO", "Apresentação"),
+    ("AÇÃO", "Ação"),
+    ("TERROR", "Terror"),
+    ("DOCUMENTARIOS", "Documentarios"),
+    ("ROMANCE", "Romance"),
+    ("COMÉDIA", "Comédia"),
+    ("FANTASIA", "Fantasia"),
     ("OUTROS", "Outros"),
 )
 
@@ -23,3 +26,10 @@ class Filme(models.Model): #Model -> Padrão Django
         return self.titulo
 
 #Criar os episódios
+class Episodio(models.Model):
+    filme = models.ForeignKey('Filme', related_name='episodios', on_delete=models.CASCADE)#Um para muitos, Um filme por episódio ... Vários episódios por filme
+    titulo = models.CharField(max_length=100)
+    video = models.URLField()
+
+    def __str__(self):
+        return self.filme.titulo + " " +self.titulo
