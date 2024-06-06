@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from filme.models import Filme
 from .models import Filme
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 # Create your views here.
 
 
@@ -21,4 +21,9 @@ class Homepage(TemplateView):
 class Homefilmes(ListView):
     template_name = 'homefilmes.html'
     model = Filme
-    pass
+    #object_list -> Lista de itens
+
+class DetalhesFilme(DetailView): #Para cada filme aparecerá um detalhe diferente
+    template_name = 'detalhesfilme.html'
+    model = Filme
+    #object_list -> Um item do nosso modelo
