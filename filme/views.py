@@ -41,3 +41,15 @@ class DetalhesFilme(DetailView): #Para cada filme aparecerá um detalhe diferent
         filmes_relacionados = Filme.objects.filter(categoria=self.get_object().categoria)[0:5]#Filtrar a tabela de filmes de acordo com a categoria
         context['filmes_relacionados'] = filmes_relacionados
         return context
+
+class PesquisaFilme(ListView):
+    template_name = 'pesquisa.html'
+    model = Filme
+
+    def get_queryset(self):
+        termo_pesquisa = self.request.GET.get('query')
+        if termo_pesquisa:
+            object_list = Filme.objects.filter(titulo__icontains=termo_pesquisa)#Alterando a lista de filmes
+            return object_list
+        else:
+            return None
