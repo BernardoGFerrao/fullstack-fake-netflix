@@ -2,6 +2,7 @@ from django.shortcuts import render
 from filme.models import Filme
 from .models import Filme
 from django.views.generic import ListView, TemplateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
@@ -18,12 +19,12 @@ class Homepage(TemplateView):
 #     return render(request, 'homefilmes.html', context)
 # #Context -> Dict python que é passado, que permita com que o html possa usar tags
 
-class Homefilmes(ListView):
+class Homefilmes(LoginRequiredMixin, ListView):
     template_name = 'homefilmes.html'
     model = Filme
     #object_list -> Lista de itens
 
-class DetalhesFilme(DetailView): #Para cada filme aparecerá um detalhe diferente
+class DetalhesFilme(LoginRequiredMixin, DetailView): #Para cada filme aparecerá um detalhe diferente
     template_name = 'detalhesfilme.html'
     model = Filme
     #object_list -> Um item do nosso modelo
