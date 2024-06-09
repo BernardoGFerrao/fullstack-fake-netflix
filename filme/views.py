@@ -33,6 +33,9 @@ class DetalhesFilme(DetailView): #Para cada filme aparecerá um detalhe diferent
         filme = self.get_object()
         filme.visualizacoes += 1
         filme.save()#Salva no banco de dados
+
+        usuario = request.user
+        usuario.filmes_vistos.add(filme)
         return super().get(request, *args, **kwargs)#Redireciona para a url
 
 
