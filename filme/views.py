@@ -63,3 +63,6 @@ class PesquisaFilme(ListView):
             return object_list
         else:
             return None
+
+class EditarPerfil(LoginRequiredMixin, TemplateView):
+    template_name = 'editarperfil.html'
