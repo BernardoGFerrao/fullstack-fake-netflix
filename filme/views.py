@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from filme.models import Filme
 from .models import Filme
 from django.views.generic import ListView, TemplateView, DetailView
@@ -11,6 +11,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class Homepage(TemplateView):
     template_name = 'homepage.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('filme:homefilmes')
+        else:
+            return super().get(request, *args, **kwargs)#Redireciona para a homepage
 
 # def homefilmes(request):
 #     context = {}
