@@ -9,5 +9,8 @@ def lista_filmes_alta(request):
     return {"lista_filmes_alta": lista_filmes}
 
 def filme_destaque(request):
-    filme = Filme.objects.order_by('-data_de_criacao')[0]#- Decrescente
-    return {"filme_destaque": filme}
+    if Filme.objects.all().count() == 0:
+        return {"filme_destaque": None}
+    else:
+        filme = Filme.objects.order_by('-data_de_criacao')[0]#- Decrescente
+        return {"filme_destaque": filme}
