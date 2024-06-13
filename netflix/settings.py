@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-k-9*)gvub_3(t+wjjzpf$75l#czfzsbojy0(*17_gt-fzs729k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,6 +87,17 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+import os
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': {
+            'ENGINE': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -126,6 +138,7 @@ STATIC_URL = '/static/' #Static -> Imagens que o administrador usa
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
 
