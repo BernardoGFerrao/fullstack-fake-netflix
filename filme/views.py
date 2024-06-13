@@ -1,23 +1,33 @@
 from django.shortcuts import render, redirect, reverse
-from filme.models import Filme
-from .models import Filme
-from django.views.generic import ListView, TemplateView, DetailView, FormView
+from .models import Filme, Usuario
+from django.views.generic import ListView, TemplateView, DetailView, FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CriarContaForm
+from .forms import CriarContaForm, HomeForm
 # Create your views here.
 
 
 # def homepage(request):#Request -> Requisição(GET/POST)
 #     return render(request, 'homepage.html')
 
-class Homepage(TemplateView):
+class Homepage(FormView):
     template_name = 'homepage.html'
+    form_class = HomeForm
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('filme:homefilmes')
         else:
             return super().get(request, *args, **kwargs)#Redireciona para a homepage
+
+    def get_success_url(self):
+        email = self.request.POST.get('email')
+        usuario = Usuario.objects.filter(email=email)#Verifica se existe um usuário com o email
+        if usuario:
+            url = reverse('filme:login')  # Link
+
+        else:
+            url = reverse('filme:criarconta')  # Link
+        return url
 
 # def homefilmes(request):
 #     context = {}
@@ -57,6 +67,7 @@ class PesquisaFilme(ListView):
     template_name = 'pesquisa.html'
     model = Filme
 
+
     def get_queryset(self):
         termo_pesquisa = self.request.GET.get('query')
         if termo_pesquisa:
@@ -65,8 +76,13 @@ class PesquisaFilme(ListView):
         else:
             return None
 
-class EditarPerfil(LoginRequiredMixin, TemplateView):
+class EditarPerfil(LoginRequiredMixin, UpdateView):
     template_name = 'editarperfil.html'
+    model = Usuario
+    fields = ['first_name', 'last_name', 'email']
+
+    def get_success_url(self):
+        return reverse('filme:homefilmes')
 
 class CriarConta(FormView):
     template_name = 'criarconta.html'
