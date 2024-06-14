@@ -28,7 +28,7 @@ else:
     SECRET_KEY = 'django-insecure-k-9*)gvub_3(t+wjjzpf$75l#czfzsbojy0(*17_gt-fzs729k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["web-production-a94a.up.railway.app", 'localhost', '127.0.0.1']
 
@@ -94,7 +94,7 @@ DATABASES = {
 
 import dj_database_url
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = 'postgresql://postgres:IvqvxiPzkltJKSICqypTXpnCjTtKFmSO@roundhouse.proxy.rlwy.net:19869/railway'
 
 if DATABASE_URL:
     DATABASES = {
