@@ -1,1 +1,2 @@
-web: python manage.py migrate && gunicorn netflix.wsgi --log-file -
+release: python manage.py migrate
+web: gunicorn netflix.wsgi --log-file -
