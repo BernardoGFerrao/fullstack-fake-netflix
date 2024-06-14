@@ -88,13 +88,13 @@ WSGI_APPLICATION = 'netflix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite4',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 import dj_database_url
 
-DATABASE_URL = 'postgresql://postgres:IvqvxiPzkltJKSICqypTXpnCjTtKFmSO@roundhouse.proxy.rlwy.net:19869/railway'
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 if DATABASE_URL:
     DATABASES = {
